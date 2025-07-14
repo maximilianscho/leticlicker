@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Leti Clicker v2</title>
+<title>Leti Clicker</title>
 <style>
   body { text-align: center; font-family: Arial; margin-top: 20px; }
   #count { font-size: 24px; margin-top: 20px; }
@@ -23,7 +23,7 @@
 <div id="count">Clicks: 0</div>
 
 <div id="upgrade">Buy Pang Pang (150 clicks)</div>
-<div id="upgrade2">Buy Lezat (1200 clicks)</div>
+<div id="upgrade2">Buy Lezat (500 clicks)</div>
 
 <div id="languageSelect">
   <label for="lang">Choose language: </label>
@@ -56,7 +56,7 @@
         <li>Click the image of Leti to earn clicks.</li>
         <li>Your total clicks are displayed below the image.</li>
         <li>Once you reach 150 clicks, you can buy the <strong>Pang Pang</strong> upgrade by clicking the green button. This doubles your click power and changes the image!</li>
-        <li>Once you reach 1200 clicks, you can buy the <strong>Lezat</strong> upgrade, giving you 4× click power and changing the image again!</li>
+        <li>Once you reach 500 clicks, you can buy the <strong>Lezat</strong> upgrade, giving you 4× click power and changing the image again!</li>
         <li>Try to get as many clicks as you can!</li>
       </ol>
       <p>Have fun clicking!</p>
@@ -68,7 +68,7 @@
         <li>Klik gambar Leti untuk mendapatkan klik.</li>
         <li>Total klik Anda ditampilkan di bawah gambar.</li>
         <li>Setelah mencapai 150 klik, Anda bisa membeli upgrade <strong>Pang Pang</strong> dengan mengklik tombol hijau. Ini menggandakan kekuatan klik Anda dan mengubah gambarnya!</li>
-        <li>Setelah mencapai 1200 klik, Anda bisa membeli upgrade <strong>Lezat</strong> untuk mendapatkan 4× kekuatan klik dan mengubah gambar lagi!</li>
+        <li>Setelah mencapai 500 klik, Anda bisa membeli upgrade <strong>Lezat</strong> untuk mendapatkan 4× kekuatan klik dan mengubah gambar lagi!</li>
         <li>Cobalah untuk mendapatkan klik sebanyak mungkin!</li>
       </ol>
       <p>Selamat bermain!</p>
@@ -120,8 +120,8 @@
   }
 
   upgrade2.onclick = () => {
-    if (!upgrade2Bought && clicks >= 1200) {
-      clicks -= 1200;
+    if (!upgrade2Bought && clicks >= 500) {
+      clicks -= 500;
       multiplier = 4;
       upgrade2Bought = true;
       count.textContent = `Clicks: ${clicks}`;
