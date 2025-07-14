@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Leti Clicker v2</title>
+<style>
+  body { text-align: center; font-family: Arial; margin-top: 20px; }
+  #count { font-size: 24px; margin-top: 20px; }
+  img { cursor: pointer; width: 200px; }
+  #upgrade, #upgrade2 {
+    margin-top: 20px; font-size: 18px; cursor: pointer;
+    background-color: green; color: white;
+    display: inline-block; padding: 10px 20px; border-radius: 5px;
+  }
+  #tutorial { margin-top: 30px; font-size: 16px; max-width: 600px; margin-left: auto; margin-right: auto; }
+  #languageSelect { margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<h1>Leti Clicker</h1>
+<img id="letiBtn" src="https://files.catbox.moe/uq57xj.jpg" alt="Leti">
+<div id="count">Clicks: 0</div>
+
+<div id="upgrade">Buy Pang Pang (150 clicks)</div>
+<div id="upgrade2">Buy Lezat (1200 clicks)</div>
+
+<div id="languageSelect">
+  <label for="lang">Choose language: </label>
+  <select id="lang">
+    <option value="id">Bahasa Indonesia</option>
+    <option value="en">English</option>
+  </select>
+</div>
+
+<div id="tutorial"></div>
+
+<script>
+  let clicks = parseInt(localStorage.getItem('clicks')) || 0;
+  let multiplier = parseInt(localStorage.getItem('multiplier')) || 1;
+  let upgradeBought = localStorage.getItem('upgradeBought') === 'true';
+  let upgrade2Bought = localStorage.getItem('upgrade2Bought') === 'true';
+
+  const btn = document.getElementById('letiBtn');
+  const count = document.getElementById('count');
+  const upgrade = document.getElementById('upgrade');
+  const upgrade2 = document.getElementById('upgrade2');
+  const tutorial = document.getElementById('tutorial');
+  const langSelect = document.getElementById('lang');
+
+  const tutorials = {
+    en: `
+      <h2>Tutorial</h2>
+      <p>Welcome to <strong>Leti Clicker</strong>! Here’s how to play:</p>
+      <ol>
+        <li>Click the image of Leti to earn clicks.</li>
+        <li>Your total clicks are displayed below the image.</li>
+        <li>Once you reach 150 clicks, you can buy the <strong>Pang Pang</strong> upgrade by clicking the green button. This doubles your click power and changes the image!</li>
+        <li>Once you reach 1200 clicks, you can buy the <strong>Lezat</strong> upgrade, giving you 4× click power and changing the image again!</li>
+        <li>Try to get as many clicks as you can!</li>
+      </ol>
+      <p>Have fun clicking!</p>
+    `,
+    id: `
+      <h2>Tutorial</h2>
+      <p>Selamat datang di <strong>Leti Clicker</strong>! Begini cara bermainnya:</p>
+      <ol>
+        <li>Klik gambar Leti untuk mendapatkan klik.</li>
+        <li>Total klik Anda ditampilkan di bawah gambar.</li>
+        <li>Setelah mencapai 150 klik, Anda bisa membeli upgrade <strong>Pang Pang</strong> dengan mengklik tombol hijau. Ini menggandakan kekuatan klik Anda dan mengubah gambarnya!</li>
+        <li>Setelah mencapai 1200 klik, Anda bisa membeli upgrade <strong>Lezat</strong> untuk mendapatkan 4× kekuatan klik dan mengubah gambar lagi!</li>
+        <li>Cobalah untuk mendapatkan klik sebanyak mungkin!</li>
+      </ol>
+      <p>Selamat bermain!</p>
+    `
+  };
+
+  function updateTutorial() {
+    tutorial.innerHTML = tutorials[langSelect.value];
+    localStorage.setItem('language', langSelect.value);
+  }
+
+  langSelect.value = localStorage.getItem('language') || 'id';
+  langSelect.onchange = updateTutorial;
+  updateTutorial();
+
+  if (upgradeBought) {
+    btn.src = "https://files.catbox.moe/mar294.jpg";
+    upgrade.textContent = "Pang Pang Purchased!";
+    upgrade.style.cursor = "default";
+  }
+
+  if (upgrade2Bought) {
+    btn.src = "https://files.catbox.moe/2ni68l.jpg";
+    upgrade2.textContent = "Lezat Purchased!";
+    upgrade2.style.cursor = "default";
+  }
+
+  count.textContent = `Clicks: ${clicks}`;
+
+  btn.onclick = () => {
+    clicks += multiplier;
+    count.textContent = `Clicks: ${clicks}`;
+    localStorage.setItem('clicks', clicks);
+  }
+
+  upgrade.onclick = () => {
+    if (!upgradeBought && clicks >= 150) {
+      clicks -= 150;
+      multiplier = 2;
+      upgradeBought = true;
+      count.textContent = `Clicks: ${clicks}`;
+      btn.src = "https://files.catbox.moe/mar294.jpg";
+      upgrade.textContent = "Pang Pang Purchased!";
+      upgrade.style.cursor = "default";
+      localStorage.setItem('clicks', clicks);
+      localStorage.setItem('multiplier', multiplier);
+      localStorage.setItem('upgradeBought', true);
+    }
+  }
+
+  upgrade2.onclick = () => {
+    if (!upgrade2Bought && clicks >= 1200) {
+      clicks -= 1200;
+      multiplier = 4;
+      upgrade2Bought = true;
+      count.textContent = `Clicks: ${clicks}`;
+      btn.src = "https://files.catbox.moe/2ni68l.jpg";
+      upgrade2.textContent = "Lezat Purchased!";
+      upgrade2.style.cursor = "default";
+      localStorage.setItem('clicks', clicks);
+      localStorage.setItem('multiplier', multiplier);
+      localStorage.setItem('upgrade2Bought', true);
+    }
+  }
+</script>
+
+</body>
+</html>
